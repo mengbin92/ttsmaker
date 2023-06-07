@@ -1,0 +1,9 @@
+{
+    "token": "ttsmaker_demo_token",
+    "text": "Hello, World!",
+    "voice_id": "778",
+    "audio_format": "mp3",
+    "audio_speed": 1.0,
+    "audio_volume": 0,
+    "text_paragraph_pause_time": 0
+}
