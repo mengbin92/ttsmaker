@@ -8,24 +8,26 @@ import (
 )
 
 type Client struct {
-	token      string
-	HttpClient *http.Client
+	token  string
+	client *http.Client
 }
 
-func NewClinet(token string) *Client {
+func NewClient(token string) *Client {
 	return &Client{
-		token:      token,
-		HttpClient: &http.Client{},
+		token:  token,
+		client: &http.Client{},
 	}
 }
 
+// sendRequest sends an HTTP request to a given URL and handles the response
 func (c *Client) sendRequest(req *http.Request, v any) error {
-	res, err := c.HttpClient.Do(req)
+	res, err := c.client.Do(req)
 	if err != nil {
 		return errors.Wrap(err, "send ChatCompletion request error")
 	}
 	defer res.Body.Close()
 
+	// Handle the response from ttsmaker
 	if v != nil {
 		if err := sonic.ConfigDefault.NewDecoder(res.Body).Decode(v); err != nil {
 			return errors.Wrap(err, "unmarshal ttsmaker Response error")

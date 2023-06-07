@@ -8,6 +8,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Get a list of the available languages and voices.
 func (c *Client) GetVoiceList(ctx context.Context) (response ListResponse, err error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?token=%s", listUrl, c.token), nil)
 	if err != nil {
@@ -22,6 +23,7 @@ func (c *Client) GetVoiceList(ctx context.Context) (response ListResponse, err e
 	return
 }
 
+// Get a list of the available voices with language.
 func (c *Client) GetVoiceListWithLang(ctx context.Context, lang string) (response ListResponse, err error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?token=%s&language=%s", listUrl, c.token, lang), nil)
 	if err != nil {

@@ -8,6 +8,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Check the developer token's character quota, used characters, quota reset date and other information.
 func (c *Client) GetTokenStatus(ctx context.Context) (response StatusResponse, err error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?token=%s", statusUrl, c.token), nil)
 	if err != nil {

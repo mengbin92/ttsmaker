@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	client := ttsmaker.NewClinet("ttsmaker_demo_token")
+	client := ttsmaker.NewClient("ttsmaker_demo_token")
 
 	listResp, err := client.GetVoiceList(context.Background())
 	if err != nil {
