@@ -1,67 +1,76 @@
 package ttsmaker
 
-// for voice list
+// ListResponse represents the response from the voice list API
 type ListResponse struct {
-	ErrorCode           string               `json:"error_code"`
-	Status              string               `json:"status"`
-	ErrorDetails        string               `json:"error_details"`
-	Token               string               `json:"token"`
+	ErrorCode           int                  `json:"error_code"`
+	ErrorSummary        string               `json:"error_summary"`
+	Msg                 string               `json:"msg"`
+	UserEmail           string               `json:"user_email"`
 	Language            string               `json:"language"`
-	APIMaxQps           string               `json:"api_max_qps"`
 	SupportLanguageList []string             `json:"support_language_list"`
-	VoicesIDList        []int64              `json:"voices_id_list"`
+	VoicesIDList        []int                `json:"voices_id_list"`
+	VoicesCount         int                  `json:"voices_count"`
 	VoicesDetailedList  []VoicesDetailedList `json:"voices_detailed_list"`
-	VoicesCount         int64                `json:"voices_count"`
 }
 
+// VoicesDetailedList represents the detailed information of a voice
 type VoicesDetailedList struct {
-	Name         string `json:"name"`
-	Language     string `json:"language"`
-	SampleMp3URL string `json:"sample_mp3_url"`
-	ID           int64  `json:"id"`
-	LimitText    int64  `json:"limit_text"`
+	ID                    int      `json:"id"`
+	Name                  string   `json:"name"`
+	Language              string   `json:"language"`
+	AudioSampleFileURL    string   `json:"audio_sample_file_url"`
+	TextCharactersLimit   int      `json:"text_characters_limit"`
+	IsSupportEmotion      bool     `json:"is_support_emotion,omitempty"`
+	SupportEmotionKeyList []string `json:"support_emotion_key_list,omitempty"`
 }
 
-// for create a ttsmaker order request
+// OrderRequest represents the request parameters for creating a TTS order
 type OrderRequest struct {
-	Token                  string  `json:"token"`
+	APIKey                 string  `json:"api_key"`
 	Text                   string  `json:"text"`
-	VoiceID                string  `json:"voice_id"`
+	VoiceID                int     `json:"voice_id"`
 	AudioFormat            string  `json:"audio_format"`
-	AudioSpeed             float64 `json:"audio_speed"`
-	AudioVolume            int64   `json:"audio_volume"`
-	TextParagraphPauseTime int64   `json:"text_paragraph_pause_time"`
+	AudioSpeed             float64 `json:"audio_speed,omitempty"`
+	AudioVolume            int     `json:"audio_volume,omitempty"`
+	AudioPitch             float64 `json:"audio_pitch,omitempty"`
+	AudioHighQuality       int     `json:"audio_high_quality,omitempty"`
+	TextParagraphPauseTime int     `json:"text_paragraph_pause_time,omitempty"`
+	EmotionStyleKey        string  `json:"emotion_style_key,omitempty"`
+	EmotionIntensity       float64 `json:"emotion_intensity,omitempty"`
 }
 
-// order response from ttsmaker
+// OrderResponse represents the response from the TTS API
 type OrderResponse struct {
-	ErrorCode           string      `json:"error_code"`
-	Status              string      `json:"status"`
-	ErrorDetails        string      `json:"error_details"`
-	AudioFileURL        string      `json:"audio_file_url"`
-	AudioFileType       string      `json:"audio_file_type"`
-	TTSElapsedTime      string      `json:"tts_elapsed_time"`
-	TokenStatus         TokenStatus `json:"token_status"`
-	UnixTimestamp       int64       `json:"unix_timestamp"`
-	AudioFileExpireTime int64       `json:"audio_file_expire_time"`
-	TTSOrderCharacters  int64       `json:"tts_order_characters"`
+	ErrorCode                    int           `json:"error_code"`
+	ErrorSummary                 string        `json:"error_summary"`
+	Msg                          string        `json:"msg"`
+	UserEmail                    string        `json:"user_email"`
+	TTSTaskCharactersCount       int           `json:"tts_task_characters_count"`
+	AudioDownloadURL             string        `json:"audio_download_url"`
+	AudioDownloadBackupURL       string        `json:"audio_download_backup_url"`
+	AudioFileFormat              string        `json:"audio_file_format"`
+	CurrentTimestamp             int64         `json:"current_timestamp"`
+	AudioFileExpirationTimestamp int64         `json:"audio_file_expiration_timestamp"`
+	IsDemoKey                    bool          `json:"is_demo_key"`
+	AccountStatus                AccountStatus `json:"account_status"`
 }
 
-// token status
-type TokenStatus struct {
-	CurrentCycleMaxCharacters       int64   `json:"current_cycle_max_characters"`
-	CurrentCycleCharactersUsed      int64   `json:"current_cycle_characters_used"`
-	CurrentCycleCharactersAvailable int64   `json:"current_cycle_characters_available"`
-	RemainingDaysToResetQuota       float64 `json:"remaining_days_to_reset_quota"`
-	HistoryCharactersUsed           int64   `json:"history_characters_used"`
+// AccountStatus represents the user's account status and quota information
+type AccountStatus struct {
+	QuotaCharacters                int    `json:"quota_characters"`
+	CharactersUsed                 int    `json:"characters_used"`
+	AvailableQuota                 int    `json:"available_quota"`
+	SubscriptionPeriod             string `json:"subscription_period"`
+	SubscriptionNextResetTimestamp int64  `json:"subscription_next_reset_timestamp"`
 }
 
-// get token status from ttsmaker
+// StatusResponse represents the response from the API key/account status check
 type StatusResponse struct {
-	ErrorCode   string      `json:"error_code"`
-	Status      string      `json:"status"`
-	Msg         string      `json:"msg"`
-	CurrentTime string      `json:"current_time"`
-	Token       string      `json:"token"`
-	TokenStatus TokenStatus `json:"token_status"`
+	ErrorCode        int           `json:"error_code"`
+	ErrorSummary     string        `json:"error_summary"`
+	Msg              string        `json:"msg"`
+	UserEmail        string        `json:"user_email"`
+	CurrentTimestamp int64         `json:"current_timestamp"`
+	IsDemoKey        bool          `json:"is_demo_key"`
+	AccountStatus    AccountStatus `json:"account_status"`
 }

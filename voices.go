@@ -10,7 +10,7 @@ import (
 
 // Get a list of the available languages and voices.
 func (c *Client) GetVoiceList(ctx context.Context) (response ListResponse, err error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?token=%s", listUrl, c.token), nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?api_key=%s", listUrl, c.token), nil)
 	if err != nil {
 		errors.Wrap(err, "create get voice list request error")
 		return
@@ -25,7 +25,7 @@ func (c *Client) GetVoiceList(ctx context.Context) (response ListResponse, err e
 
 // Get a list of the available voices with language.
 func (c *Client) GetVoiceListWithLang(ctx context.Context, lang string) (response ListResponse, err error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?token=%s&language=%s", listUrl, c.token, lang), nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?api_key=%s&language=%s", listUrl, c.token, lang), nil)
 	if err != nil {
 		errors.Wrap(err, "create get voice list request error")
 		return

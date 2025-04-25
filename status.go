@@ -10,7 +10,7 @@ import (
 
 // Check the developer token's character quota, used characters, quota reset date and other information.
 func (c *Client) GetTokenStatus(ctx context.Context) (response StatusResponse, err error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?token=%s", statusUrl, c.token), nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s?api_key=%s", statusUrl, c.token), nil)
 	if err != nil {
 		errors.Wrap(err, "create get voice list request error")
 		return
