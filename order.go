@@ -25,6 +25,7 @@ func (c *Client) CreateOrder(ctx context.Context, request *OrderRequest) (resons
 		return
 	}
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("accept", "application/json")
 	req.Header.Set("User-Agent", "TTSMaker API Client")
 
 	err = c.sendRequest(req, &resonse)

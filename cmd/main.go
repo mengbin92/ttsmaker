@@ -17,9 +17,9 @@ func main() {
 	fmt.Println(listResp)
 
 	orderRequest := &ttsmaker.OrderRequest{
-		Token:                  "ttsmaker_demo_token",
+		APIKey:                 "ttsmaker_demo_token",
 		Text:                   "hello, world!",
-		VoiceID:                "778",
+		VoiceID:                778,
 		AudioFormat:            "mp3",
 		AudioSpeed:             1.0,
 		AudioVolume:            0,
